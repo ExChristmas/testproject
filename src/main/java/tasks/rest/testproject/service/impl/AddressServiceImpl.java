@@ -1,31 +1,37 @@
 package tasks.rest.testproject.service.impl;
 
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tasks.rest.testproject.db.dao.AddressDao;
 import tasks.rest.testproject.db.dao.impl.AddressDaoImplMongoDb;
 import tasks.rest.testproject.model.Address;
+import tasks.rest.testproject.repos.AddressRepository;
 import tasks.rest.testproject.service.AddressService;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AddressServiceImpl implements AddressService {
 
-    private final AddressDao addressDao = new AddressDaoImplMongoDb();
+    @Autowired
+    private AddressRepository addressRepository;
 
     @Override
     public void create(Address address) {
-        addressDao.create(address);
+        addressRepository.insert(address);
     }
 
     @Override
     public List<Address> readAll() {
-        return addressDao.readAll();
+        return addressRepository.findAll();
     }
 
     @Override
-    public Address read(String id) {
-        return read(id);
+    public Address read(ObjectId id) {
+        Optional<Address> opt = addressRepository.findById(id);
+        return opt.orElse(null);
     }
 
 //    @Override

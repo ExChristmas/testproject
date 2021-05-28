@@ -1,5 +1,6 @@
 package tasks.rest.testproject.service;
 
+import org.bson.types.ObjectId;
 import tasks.rest.testproject.model.Address;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public interface AddressService {
 
     List<Address> readAll();
 
-    Address read(String id);
+    Address read(ObjectId id);
 
 //    boolean update(Address address, int id);
 //
