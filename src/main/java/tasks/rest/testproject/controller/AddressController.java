@@ -46,7 +46,7 @@ public class AddressController {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             else
                 return addressesFromQuery.get(0).getId() != null
-                        ? new ResponseEntity<ObjectId>(addressesFromQuery.get(0).getId(), HttpStatus.OK)
+                        ? new ResponseEntity<>(addressesFromQuery.get(0).getId(), HttpStatus.OK)
                         : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 

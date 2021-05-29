@@ -35,8 +35,8 @@ public class AddressServiceImpl implements AddressService {
     }
 
     @Override
-    public List<Address> read(String region, String city, String street, String home) {
-        return addressRepository.findByAddressWithoutId(region, city, street, home);
+    public List<Address> read(String region, String city, String street, String house) {
+        return addressRepository.findByAddressWithoutId(region, city, street, house);
     }
 
 //    @Override

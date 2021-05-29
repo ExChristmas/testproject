@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AddressRepository extends MongoRepository<Address, ObjectId> {
 
-    @Query(value = "{ 'region' : ?0 , 'city' : ?1 , 'street' : ?2 , 'home' : ?3 }")
-    List<Address> findByAddressWithoutId(String region, String city, String street, String home);
+    @Query("{ 'region' : ?0, 'city' : ?1, 'street' : ?2, 'house' : ?3 }")
+    List<Address> findByAddressWithoutId(String region, String city, String street, String house);
 
 }
