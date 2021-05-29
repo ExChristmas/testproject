@@ -13,6 +13,8 @@ public interface AddressService {
 
     Address read(ObjectId id);
 
+    List<Address> read(String region, String city, String street, String home);
+
 //    boolean update(Address address, int id);
 //
 //    boolean delete(int id);

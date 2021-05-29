@@ -23,23 +23,31 @@ public class AddressController {
 
     @PostMapping(value = "/addresses")
     public ResponseEntity<?> create(@RequestBody Address address) {
-//        try {
-//            address.checkValidate();
-//        } catch (ValidationAddressException ex) {
-//            System.out.println(ex.getErrorCode());
-//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//        }
+        try {
+            address.checkValidate();
+        } catch (ValidationAddressException ex) {
+            System.out.println(ex.getErrorCode());
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         addressService.create(address);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping(value = "/addresses")
-    public ResponseEntity<List<Address>> read() {
-        final List<Address> addresses = addressService.readAll();
+    @GetMapping(
+            value = "/addresses",
+            params = {"region", "city", "street", "house"}
+    )
+    public ResponseEntity<ObjectId> read(@RequestParam("region") String region, @RequestParam("city") String city,
+                                         @RequestParam("street") String street, @RequestParam("house") String house) {
+        List<Address> addressesFromQuery = addressService.read(region, city, street, house);
 
-        return addresses != null && !addresses.isEmpty()
-                ? new ResponseEntity<>(addresses, HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            if (addressesFromQuery.isEmpty())
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            else
+                return addressesFromQuery.get(0).getId() != null
+                        ? new ResponseEntity<ObjectId>(addressesFromQuery.get(0).getId(), HttpStatus.OK)
+                        : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/addresses/{id}")

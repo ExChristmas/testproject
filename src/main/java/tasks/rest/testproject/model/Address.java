@@ -76,16 +76,16 @@ public class Address {
     }
 
     private void checkValidateRegion() throws ValidationAddressException {
-        if(!Pattern.matches("([а-я-]{5,15}\\s[а-я]{5,15})" +
-                "|([а-я-]{3,15}\\s[а-я]{3,15}\\s[а-я]{3,10})", region))
+        if(!Pattern.matches("([а-я-]{5,15}\\s[а-я]{5,15})|" +
+                "([а-я-]{3,15}\\s[а-я]{3,15}\\s[а-я]{3,10})", region))
             throw new ValidationAddressException(ValidationErrorCode.WRONG_REGION);
         else if (region == null)
             throw new ValidationAddressException(ValidationErrorCode.NULL_REGION);
     }
 
     private void checkValidateCity() throws ValidationAddressException {
-        if(!Pattern.matches("([а-я-]{3,15})([а-я-]{2,15}\\s[а-я]{3,15})" +
-                "|([а-я-]{2,15}\\s[а-я]{3,15}\\s[а-я]{3,10})", city))
+        if(!Pattern.matches("([а-я-]{2,15})|([а-я-]{5,15}\\s[а-я]{5,15})|" +
+                "([а-я-]{3,15}\\s[а-я]{3,15}\\s[а-я]{3,10})", city))
             throw new ValidationAddressException(ValidationErrorCode.WRONG_CITY);
         else if(city == null)
             throw new ValidationAddressException(ValidationErrorCode.NULL_CITY);
@@ -101,9 +101,9 @@ public class Address {
     }
 
     private void checkValidateHouse() throws ValidationAddressException {
-        if(Pattern.matches("([0-9]{1,4})|" +
-                "([0-9]{1,4}/?[0-9]{1,4})|" +
-                "([0-9]{1,4}-?[0-9]{1,4})", house))
+        if(!Pattern.matches("([0-9]{1,5})|" +
+                "([0-9]{1,5}/[0-9]{1,5})|" +
+                "([0-9]{1,5}-[0-9]{1,5})", house))
             throw new ValidationAddressException(ValidationErrorCode.WRONG_HOUSE);
         else if(house == null)
             throw new ValidationAddressException(ValidationErrorCode.NULL_HOUSE);

@@ -34,6 +34,11 @@ public class AddressServiceImpl implements AddressService {
         return opt.orElse(null);
     }
 
+    @Override
+    public List<Address> read(String region, String city, String street, String home) {
+        return addressRepository.findByAddressWithoutId(region, city, street, home);
+    }
+
 //    @Override
 //    public boolean update(Address address, int id) {
 //        return false;
